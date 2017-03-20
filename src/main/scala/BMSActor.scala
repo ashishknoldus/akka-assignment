@@ -26,7 +26,7 @@ class BMSActor extends Actor{
         // after reading the lock status
         // as only a limited number of threads can reach upto this area
         // after reading lock so random() method's performance penalty isn't that much
-        Thread.sleep(100 * Math.random().toInt)
+        Thread.sleep((100 * Math.random()).toInt)
 
         if(BMSActor.listOfSeats(seat) == 1) {
           BMSActor.listOfSeats(seat) = 0
