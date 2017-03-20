@@ -16,15 +16,23 @@ class BMSActor extends Actor{
   override def receive: Receive = {
 
     case seat: Int =>
-      if(!BMSActor.bookingLock) {
+
+      if(!BMSActor.bookingLock) { //This block is accessed only if
 
         BMSActor.bookingLock = true
+
+        // Safety for reading a seat status if two
+        // threads simultaneously enter into critical section
+        // after reading the lock status
+        // as only a limited number of threads can reach upto this area
+        // after reading lock so random() method's performance penalty isn't that much
+        Thread.sleep(100 * Math.random().toInt)
 
         if(BMSActor.listOfSeats(seat) == 1) {
           BMSActor.listOfSeats(seat) = 0
           println(s"Seat $seat has been booked")
         } else {
-
+          println(s"The seat $seat is already booked")
         }
 
         BMSActor.bookingLock = false
