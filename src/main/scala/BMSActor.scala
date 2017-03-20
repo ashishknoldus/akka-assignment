@@ -1,11 +1,9 @@
 import akka.actor.{Actor, ActorSystem, Props}
-import akka.actor.Actor.Receive
 import akka.routing.FromConfig
 import akka.util.Timeout
 import com.typesafe.config.ConfigFactory
 
-import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.collection.mutable.ArrayBuffer
 import scala.concurrent.duration.DurationLong
 
 /**
@@ -17,8 +15,10 @@ class BMSActor extends Actor{
 
     case seat: Int =>
 
-
-      if(!BMSActor.bookingLocks(seat - 1)) {
+      if(seat > BMSActor.bookingLocks.size || seat < 1) {
+        println(s"Only ${BMSActor.bookingLocks.size} seats available")
+      }
+      else if(!BMSActor.bookingLocks(seat - 1)) {
         //This block is accessed only if the lock for a seat is available
 
         BMSActor.bookingLocks(seat - 1) = true
@@ -34,7 +34,7 @@ class BMSActor extends Actor{
           BMSActor.listOfSeats(seat - 1) = 0
           println(s"Seat $seat has been booked")
         } else {
-
+          println(s"Seat $seat is already booked. Please try another seat.")
         }
 
         BMSActor.bookingLocks(seat - 1) = false
@@ -48,7 +48,7 @@ class BMSActor extends Actor{
 
 object BMSActor extends App{
 
-  var bookingLocks: Array[Boolean] = Array.fill(50)(false) // Locks for all seats
+  val bookingLocks: ArrayBuffer[Boolean] = ArrayBuffer.fill(50)(false) // Locks for all seats
   val listOfSeats : ArrayBuffer[Int] = ArrayBuffer.fill(50)(1) // 1 represents unbooked seat
 
   val config = ConfigFactory.parseString(
@@ -75,99 +75,98 @@ object BMSActor extends App{
   router ! 45
   router ! 45
   router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-  router ! 45
-
+  router ! 40
+  router ! 40
+  router ! 40
+  router ! 40
+  router ! -1
+  router ! -1
+  router ! 41
+  router ! 41
+  router ! 41
+  router ! 41
+  router ! 25
+  router ! 25
+  router ! 25
+  router ! 25
+  router ! 22
+  router ! 22
+  router ! 22
+  router ! 22
+  router ! 21
+  router ! 21
+  router ! 21
+  router ! 21
+  router ! 17
+  router ! 17
+  router ! 17
+  router ! 17
+  router ! 1
+  router ! 1
+  router ! 1
+  router ! 1
+  router ! 50
+  router ! 50
+  router ! 50
+  router ! 50
+  router ! 51
+  router ! 51
+  router ! 51
+  router ! 51
+  router ! 7
+  router ! 7
+  router ! 7
+  router ! 45
+  router ! 45
+  router ! 45
+  router ! 45
+  router ! 45
+  router ! 7
+  router ! 7
+  router ! 29
+  router ! 29
+  router ! 29
+  router ! 29
+  router ! 29
+  router ! 32
+  router ! 32
+  router ! 32
+  router ! 32
+  router ! 39
+  router ! 39
+  router ! 39
+  router ! 39
+  router ! 38
+  router ! 38
+  router ! 38
+  router ! 38
+  router ! 44
+  router ! 44
+  router ! 44
+  router ! 44
+  router ! 46
+  router ! 46
+  router ! 46
+  router ! 46
+  router ! 47
+  router ! 47
+  router ! 47
+  router ! 47
+  router ! 4
+  router ! 4
+  router ! 4
+  router ! 4
+  router ! 5
+  router ! 5
+  router ! 5
+  router ! 5
+  router ! 48
+  router ! 48
+  router ! 48
+  router ! 48
+  router ! 42
+  router ! 42
+  router ! 42
+  router ! 42
+  router ! 14
 }
