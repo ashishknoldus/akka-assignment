@@ -49,8 +49,8 @@
       <file leaf-file-name="BMSActor.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/BMSActor.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="249">
+              <caret line="61" column="7" lean-forward="false" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -677,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/BMSActor.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="249">
+          <caret line="61" column="7" lean-forward="false" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>

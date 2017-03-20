@@ -17,25 +17,27 @@ class BMSActor extends Actor{
 
     case seat: Int =>
 
-      if(!BMSActor.bookingLock) { //This block is accessed only if
 
-        BMSActor.bookingLock = true
+      if(!BMSActor.bookingLocks(seat - 1)) {
+        //This block is accessed only if the lock for a seat is available
+
+        BMSActor.bookingLocks(seat - 1) = true
 
         // Safety for reading a seat status if two
         // threads simultaneously enter into critical section
         // after reading the lock status
-        // as only a limited number of threads can reach upto this area
+        // As only a limited number of threads can reach upto this area
         // after reading lock so random() method's performance penalty isn't that much
         Thread.sleep((100 * Math.random()).toInt)
 
-        if(BMSActor.listOfSeats(seat) == 1) {
-          BMSActor.listOfSeats(seat) = 0
+        if(BMSActor.listOfSeats(seat - 1) == 1) {
+          BMSActor.listOfSeats(seat - 1) = 0
           println(s"Seat $seat has been booked")
         } else {
-          println(s"The seat $seat is already booked")
+
         }
 
-        BMSActor.bookingLock = false
+        BMSActor.bookingLocks(seat - 1) = false
 
       } else {
         Thread.sleep(20)
@@ -46,8 +48,8 @@ class BMSActor extends Actor{
 
 object BMSActor extends App{
 
-  var bookingLock: Boolean = false
-  val listOfSeats : ArrayBuffer[Int] = ArrayBuffer.fill(50)(1) //1 represents unbooked seat
+  var bookingLocks: Array[Boolean] = Array.fill(50)(false) // Locks for all seats
+  val listOfSeats : ArrayBuffer[Int] = ArrayBuffer.fill(50)(1) // 1 represents unbooked seat
 
   val config = ConfigFactory.parseString(
     """
